@@ -1,0 +1,20 @@
+{
+    "name": "sqlserver-source",
+    "config": {
+        "connector.class": "io.debezium.connector.sqlserver.SqlServerConnector",
+        "tasks.max": "1",
+        "database.server.name": "sqlserver-debezium",
+        "database.hostname": "localhost",
+        "database.port": "1433",
+        "database.user": "sa",
+        "database.password": "sourceStrong_1",
+        "database.dbname": "debezium",
+        "database.history.kafka.bootstrap.servers": "kafka:9092",
+        "database.history.kafka.topic": "dbhistory.sql",
+        "table.whitelist" : "dbo.author",
+        "transforms": "route",
+        "transforms.route.type": "org.apache.kafka.connect.transforms.RegexRouter",
+        "transforms.route.regex": "([^.]+)\\.([^.]+)\\.([^.]+)",
+        "transforms.route.replacement": "$3"
+    }
+}
